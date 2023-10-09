@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-import re #Import Regular Expression
-from PIL import Image, ImageTk  # Import PIL
+import re
+from PIL import Image, ImageTk
 
 # Function to find email addresses in the text
 def find_emails():
@@ -46,8 +46,6 @@ def extract_message_body():
         result_display.delete(1.0, tk.END)
         result_display.insert(tk.END, f"Message Body:\n{message_body}")
 
-
-
 # Create the main window
 root = tk.Tk()
 root.title("Email Information Extractor")
@@ -57,18 +55,19 @@ icon = tk.PhotoImage(file='Email.png')
 root.iconphoto(False, icon)
 
 root.geometry('1250x700')  # Window size
-root.configure(background="#20262E")
-
-# Load and display the background image
-background_image = Image.open("bg.png")
-background_photo = ImageTk.PhotoImage(background_image)
-background_label = tk.Label(root, image=background_photo)
-background_label.place(relwidth=1, relheight=1)
+root.configure(background="#303030")  # Set a dark gray background color
 
 # Create input field
 text_input = tk.Text(root, height=17, width=150)
-text_input.grid(row=0, column=0, columnspan=4, padx=15, pady=(10,10))
+text_input.grid(row=0, column=0, columnspan=5, padx=15, pady=(10, 10))
 
+# Create a frame to contain the label with padding
+task_frame = ttk.Frame(root)
+task_frame.grid(row=1, column=0, columnspan=5, padx=15, pady=(10, 10))
+
+# Create a label for the task selection inside the frame
+task_label = ttk.Label(task_frame, text="Choose Your Task", font=('Helvetica', 14), style="Bold.TButton", foreground="#64CCC5")
+task_label.pack(padx=10, pady=5)
 
 # Custom buttons for tasks
 style = ttk.Style()
@@ -78,23 +77,23 @@ style.map("Bold.TButton",
           background=[('pressed', '!disabled', 'yellow'), ('active', 'red')])
 
 find_urls_button = ttk.Button(root, text="Find URLs", command=find_urls, style="Bold.TButton")
-find_urls_button.grid(row=1, column=0, pady=(10,10))
+find_urls_button.grid(row=2, column=0, padx=(10, 0), pady=(10, 10))
 
 find_emails_button = ttk.Button(root, text="Find Emails", command=find_emails, style="Bold.TButton")
-find_emails_button.grid(row=1, column=1, pady=(10,10))
+find_emails_button.grid(row=2, column=1, padx=10, pady=(10, 10))
 
 find_keywords_button = ttk.Button(root, text="Find Keywords", command=find_keywords, style="Bold.TButton")
-find_keywords_button.grid(row=1, column=2, pady=(10,10))
+find_keywords_button.grid(row=2, column=2, padx=10, pady=(10, 10))
 
 find_dates_subjects_button = ttk.Button(root, text="Find Dates & Subjects", command=find_dates_subjects, style="Bold.TButton")
-find_dates_subjects_button.grid(row=1, column=3, pady=(10,10))
+find_dates_subjects_button.grid(row=2, column=3, padx=10, pady=(10, 10))
 
 extract_message_body_button = ttk.Button(root, text="Extract Message Body", command=extract_message_body, style="Bold.TButton")
-extract_message_body_button.grid(row=2, column=2, pady=(10, 10))
+extract_message_body_button.grid(row=2, column=4, padx=(0, 10), pady=(10, 10))
 
 # Create result display area
-result_display = tk.Text(root, height=12, width=100, bg="#D8D9DA", fg="#0E21A0", font=("Bold", 15))
-result_display.grid(row=3, column=0, columnspan=4, padx=10, pady=(10,20),)
+result_display = tk.Text(root, height=12, width=100, bg="#D8D9DA", fg="#1AACAC", font=("Bold", 15))
+result_display.grid(row=3, column=0, columnspan=5, padx=10, pady=(10, 20))
 
 # Start the main loop
 root.mainloop()
